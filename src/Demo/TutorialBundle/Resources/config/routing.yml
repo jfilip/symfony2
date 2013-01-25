@@ -1,0 +1,10 @@
+album:
+    pattern:  /album/{action}/{id}
+    defaults: { _controller: DemoTutorialBundle:Default:index, action: index, id: 0 }
+    requirements:
+        action: '[a-zA-Z][a-zA-Z0-9_-]+'
+        id: '[0-9]+'
+
+create_test:
+    pattern:   /create_test
+    defaults: { _controller: DemoTutorialBundle:Default:create }
