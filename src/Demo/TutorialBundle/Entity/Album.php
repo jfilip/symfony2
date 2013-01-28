@@ -5,7 +5,7 @@ namespace Demo\TutorialBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Demo\TutorialBundle\Entity\AlbumRepository")
  * @ORM\Table(name="album")
  */
 class Album {
@@ -14,28 +14,22 @@ class Album {
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    public $artist;
+    protected $artist;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    public $title;
-
-    // public function exchangeArray($data) {
-    //     $this->id     = (isset($data['id'])) ? $data['id'] : null;
-    //     $this->artist = (isset($data['artist'])) ? $data['artist'] : null;
-    //     $this->title  = (isset($data['title'])) ? $data['title'] : null;
-    // }
+    protected $title;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,7 +45,7 @@ class Album {
     public function setArtist($artist)
     {
         $this->artist = $artist;
-    
+
         return $this;
     }
 
@@ -74,14 +68,14 @@ class Album {
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {

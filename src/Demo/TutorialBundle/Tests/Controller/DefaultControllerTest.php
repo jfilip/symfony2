@@ -32,29 +32,4 @@ class DefaultControllerTest extends WebTestCase {
         $crawler  = $client->request('GET', '/album/delete');
         $this->assertTrue($client->getResponse()->isOK());
     }
-
-    // public function testIndexActionCanBeAccessed() {
-    //     $this->routeMatch->setParam('action', 'index');
-
-    //     $result   = $this->controller->dispatch($this->request);
-    //     $response = $this->controller->getResponse();
-
-    //     $this->assertEquals(200, $response->getStatusCode());
-    // }
 }
-
-
-// src/Acme/DemoBundle/Tests/Utility/CalculatorTest.php
-
-// use Demo\TutorialBundle\
-
-// class DefaultControllerTest extends \PHPUnit_Framework_TestCase {
-//     public function testIndexActionCanBeAccessed() {
-//         $this->routeMatch->setParam('action', 'index');
-
-//         $result   = $this->controller->dispatch($this->request);
-//         $response = $this->controller->getResponse();
-
-//         $this->assertEquals(200, $response->getStatusCode());
-//     }
-// }

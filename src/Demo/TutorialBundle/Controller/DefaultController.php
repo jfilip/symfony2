@@ -8,8 +8,18 @@ use Demo\TutorialBundle\Entity\Album;
 
 class DefaultController extends Controller {
     public function indexAction() {
-        // return $this->render('DemoTutorialBundle:Default:index.html.twig', array('name' => $name));
-        return new Response('');
+        $title = 'My albums';
+        // $this->headTitle($title);
+        // $dbobj = new Album();
+        // $albums = $dbobj->findAll();
+        // $repository = $this->getDoctrine()->getRepository('DemoTutorialBundle:Album');
+        // $albums = $repository->findAll();
+
+        $em = $this->getDoctrine()->getManager();
+        $albums = $em->getRepository('DemoTutorialBundle:Album')->fetch_all();
+
+        return $this->render('DemoTutorialBundle:Default:index.html.twig', array('title' => $title, 'albums' => $albums));
+        // return new Response('');
     }
 
     public function addAction() {

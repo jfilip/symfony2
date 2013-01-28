@@ -1,7 +1,31 @@
-{# src/Demo/TutorerialBundle/Resources/views/Default/index.html.twig #}
- {% extends '::base.html.twig' %}
+{% extends '::base.html.twig' %}
 
- {% block body %}
-     Hello {{ name }}!
- {% endblock %}
+{% block body %}
+
+<h1>{{ title }}</h1>
+<p>
+    <a href="<?php echo $this->url('album', array('action'=>'add'));?>">Add new album</a>
+</p>
+
+<table class="table">
+<tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>&nbsp;</th>
+</tr>
+{% for album in albums %}
+<tr>
+    <td>{{ album.title }}</td>
+    <td>{{ album.artist }}</td>
+    <td>
+        {# <a href="<?php echo $this->url('album',
+            array('action'=>'edit', 'id' => $album->id));?>">Edit</a>
+        <a href="<?php echo $this->url('album',
+            array('action'=>'delete', 'id' => $album->id));?>">Delete</a> #}
+        &nbsp;
+    </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
  
