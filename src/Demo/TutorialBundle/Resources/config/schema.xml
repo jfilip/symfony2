@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" namespace="Demo\TutorialBundle\Model" defaultIdMethod="native">
+    <table name="album">
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+            <parameter name="Charset" value="utf8"/>
+        </vendor>
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="artist" type="varchar" primaryString="true" size="100" />
+        <column name="title" type="varchar" primaryString="true" size="100" />
+    </table>
+</database>

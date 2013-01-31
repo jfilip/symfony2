@@ -18,11 +18,8 @@
     <td>{{ album.title }}</td>
     <td>{{ album.artist }}</td>
     <td>
-        {# <a href="<?php echo $this->url('album',
-            array('action'=>'edit', 'id' => $album->id));?>">Edit</a>
-        <a href="<?php echo $this->url('album',
-            array('action'=>'delete', 'id' => $album->id));?>">Delete</a> #}
-        &nbsp;
+        <a href="/album/edit/{{ album.id }}">Edit</a>
+        <a href="/album/delete/{{ album.id }}">Delete</a>
     </td>
 </tr>
 {% endfor %}
