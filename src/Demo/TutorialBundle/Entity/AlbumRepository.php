@@ -13,12 +13,22 @@ use Doctrine\ORM\EntityRepository;
 class AlbumRepository extends EntityRepository {
     public function fetch_all() {
         $query = "SELECT a
-                  FROM DemoTutorialBundle:Album a
-                  ORDER BY a.title ASC";
+                    FROM DemoTutorialBundle:Album a
+                ORDER BY a.title ASC";
 
         return $this->getEntityManager()
-            ->createQuery($query)
-            ->getResult();
+                ->createQuery($query)
+                ->getResult();
+    }
+
+    public function add_album($name, $title) {
+        $album = new Album();
+        $album->setName($name);
+        $album->setTitle($title);
+
+        $em = $this->getEntityManager();
+        $em->persist($album);
+        $em->flush();
     }
 
     /**
@@ -41,9 +51,9 @@ class AlbumRepository extends EntityRepository {
      */
     public function edit_album($id, $name, $title) {
         $em = $this->getEntityManager();
-        $product = $em->find($id);
-        $product->setName($name);
-        $product->setTitle($title);
+        $album = $em->find($id);
+        $album->setName($name);
+        $album->setTitle($title);
         try {
             $em->flush();
         } catch (\Doctrine\ORM\OptimisticLockException $e) {
@@ -51,5 +61,14 @@ class AlbumRepository extends EntityRepository {
         }
 
         return true;
+    }
+
+    public function delete_album($id) {
+        $em = $this->getEntityManager();
+        $album = $em->find($id);
+        $em->remove($album);
+        // try {
+                $em->flush();
+        // } catch ()
     }
 }
