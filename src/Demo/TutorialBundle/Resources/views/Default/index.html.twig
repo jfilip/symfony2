@@ -4,7 +4,7 @@
 
 <h1>{{ title }}</h1>
 <p>
-    <a href="<?php echo $this->url('album', array('action'=>'add'));?>">Add new album</a>
+    <a href="{{ path('_album_add') }}">Add new album</a>
 </p>
 
 <table class="table">
@@ -18,8 +18,8 @@
     <td>{{ album.title }}</td>
     <td>{{ album.artist }}</td>
     <td>
-        <a href="/album/edit/{{ album.id }}">Edit</a>
-        <a href="/album/delete/{{ album.id }}">Delete</a>
+        <a href="{{ path('_album_edit', {'id': album.id}) }}">Edit</a>
+        <a href="{{ path('_album_delete', {'id': album.id}) }}">Delete</a>
     </td>
 </tr>
 {% endfor %}

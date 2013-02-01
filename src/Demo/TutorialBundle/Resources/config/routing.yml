@@ -1,10 +1,27 @@
-album:
-    pattern:  /album/{action}/{id}
-    defaults: { _controller: DemoTutorialBundle:Default:index, action: index, id: 0 }
+_album:
+    pattern:  /album
+    defaults: { _controller: DemoTutorialBundle:Default:index }
+
+_album_add:
+    pattern:  /album/add
+    defaults: { _controller: DemoTutorialBundle:Default:add }
+
+_album_edit:
+    pattern:  /album/edit/{id}
+    defaults: { _controller: DemoTutorialBundle:Default:edit }
     requirements:
-        action: '[a-zA-Z][a-zA-Z0-9_-]+'
         id: '[0-9]+'
 
-create_test:
+_album_edit_save:
+    pattern:  /album/edit/save
+    defaults: { _controller: DemoTutorialBundle:Default:edit_save }
+
+_album_delete:
+    pattern:  /album/delete/{id}
+    defaults: { _controller: DemoTutorialBundle:Default:delete }
+    requirements:
+        id: '[0-9]+'
+
+_create_test:
     pattern:   /create_test
     defaults: { _controller: DemoTutorialBundle:Default:create }

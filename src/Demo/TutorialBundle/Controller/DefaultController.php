@@ -4,8 +4,7 @@ namespace Demo\TutorialBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bridge\Propel1\runtime\query\ModelCriteria;
-use Symfony\Bridge\Propel1\Form\DataTransformerl;
+use Symfony\Component\HttpFoundation\Request;
 use Demo\TutorialBundle\Model\Album;
 use Demo\TutorialBundle\Model\AlbumQuery;
 
@@ -41,12 +40,51 @@ class DefaultController extends Controller {
     }
 
     public function editAction($id) {
-        // Using Propel
-        // $album = AlbumQuery::create()->findByPk($id);
 
-        // if (!$album) {
-        //     throw $this->createNotFoundException('No album found for id '.$id);
-        // }
+        // Using Propel
+        $album = AlbumQuery::create()->findPk($id);
+
+        if (!$album) {
+            throw $this->createNotFoundException('No album found for id '.$id);
+        }
+
+        $title = 'Edit album: '.$album->getArtist().' - '.$album->getTitle();
+
+        $form = $this->createFormBuilder($album)
+            ->add('id', 'hidden')
+            ->add('title', 'text')
+            ->add('artist', 'text')
+            ->getForm();
+
+        $params = array(
+            'title' => $title,
+            'album' => $album,
+            'form'  => $form->createView()
+        );
+
+        return $this->render('DemoTutorialBundle:Default:edit.html.twig', $params);
+    }
+
+    public function edit_saveAction(Request $request) {
+        $album = new Album();
+
+        if ($request->isMethod('POST')) {
+            $form = $this->createFormBuilder($album)
+                ->add('id', 'hidden')
+                ->add('title', 'text')
+                ->add('artist', 'text')
+                ->getForm();
+
+            $form->bind($request);
+// var_dump($form);
+            if ($form->isValid()) {
+                $tosave = AlbumQuery::create()->findPk($album->getId());
+                $tosave->setTitle($album->getTitle());
+                $tosave->setArtist($album->getArtist());
+                $tosave->save();
+                return $this->redirect($this->generateUrl('_album'));
+            }
+        }
 
         // $album->setTitle($title);
         // $album->setArtist($artist);
@@ -55,7 +93,7 @@ class DefaultController extends Controller {
 
     public function deleteAction($id) {
         // Using Propel
-        // $album = AlbumQuery::create()->findByPk($id);
+        // $album = AlbumQuery::create()->findPk($id);
 
         // if (!$album) {
         //     throw $this->createNotFoundException('No album found for id '.$id);
