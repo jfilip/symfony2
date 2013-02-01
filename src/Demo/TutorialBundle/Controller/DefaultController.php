@@ -44,6 +44,10 @@ class DefaultController extends Controller {
         $album = new Album();
 
         if ($request->isMethod('POST')) {
+            if ($request->get('add', 'Cancel') == 'Cancel') {
+                return $this->redirect($this->generateUrl('_album'));
+            }
+
             $form = $this->createFormBuilder($album)
                 ->add('title', 'text')
                 ->add('artist', 'text')
@@ -88,6 +92,10 @@ class DefaultController extends Controller {
         $album = new Album();
 
         if ($request->isMethod('POST')) {
+            if ($request->get('edit', 'Cancel') == 'Cancel') {
+                return $this->redirect($this->generateUrl('_album'));
+            }
+
             $form = $this->createFormBuilder($album)
                 ->add('id', 'hidden')
                 ->add('title', 'text')
