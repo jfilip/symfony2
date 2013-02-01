@@ -52,6 +52,8 @@ security:
         # starting with the /_internal prefix to only localhost
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         #- { path: ^/_internal/secure, roles: ROLE_NO_ACCESS }
+
+        # The following are also secured via the methods within the Demo\TutorialBundle\Default Controler as well =)
         - { path: ^/album/add, roles: ROLE_ADMIN }
         - { path: ^/album/edit, roles: ROLE_ADMIN }
         - { path: ^/album/delete, roles: ROLE_ADMIN }

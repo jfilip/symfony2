@@ -6,7 +6,7 @@
 {% if app.security.getToken().getUser() == 'anon.' %}
     <a href="{{ path('_login') }}">Login</a>
 {% else %}
-    Logged in as {{ app.security.getToken().getUser().getUsername() }} -- <a href="{{ path('_logout') }}">Logout</a>
+    Logged in as <b>{{ app.security.getToken().getUser().getUsername() }}</b> -- <a href="{{ path('_logout') }}">Logout</a>
 {% endif %}
 </p>
 
