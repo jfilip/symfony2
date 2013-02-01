@@ -1,3 +1,7 @@
+demo_security:
+    resource: "@DemoSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
 demo_tutorial:
     resource: "@DemoTutorialBundle/Resources/config/routing.yml"
     prefix:   /

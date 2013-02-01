@@ -1,0 +1,10 @@
+
+_login:
+    pattern:  /login
+    defaults: { _controller: DemoSecurityBundle:Security:login }
+
+_login_check:
+    pattern:  /login_check
+
+_logout:
+    pattern:  /logout

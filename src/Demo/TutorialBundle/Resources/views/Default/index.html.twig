@@ -2,10 +2,21 @@
 
 {% block body %}
 
+<p>
+{% if app.security.getToken().getUser() == 'anon.' %}
+    <a href="{{ path('_login') }}">Login</a>
+{% else %}
+    Logged in as {{ app.security.getToken().getUser().getUsername() }} -- <a href="{{ path('_logout') }}">Logout</a>
+{% endif %}
+</p>
+
 <h1>{{ title }}</h1>
+
+{% if is_granted('ROLE_USER') %}
 <p>
     <a href="{{ path('_album_add') }}">Add new album</a>
 </p>
+{% endif %}
 
 <table class="table">
 <tr>
@@ -18,8 +29,12 @@
     <td>{{ album.title }}</td>
     <td>{{ album.artist }}</td>
     <td>
+{% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('_album_edit', {'id': album.id}) }}">Edit</a>
         <a href="{{ path('_album_delete', {'id': album.id}) }}">Delete</a>
+{% else %}
+        &nbsp;
+{% endif %}
     </td>
 </tr>
 {% endfor %}

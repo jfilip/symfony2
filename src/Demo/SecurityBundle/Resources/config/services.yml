@@ -1,0 +1,7 @@
+parameters:
+#    demo_security.example.class: Demo\SecurityBundle\Example
+
+services:
+#    demo_security.example:
+#        class: %demo_security.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -3,6 +3,7 @@
 namespace Demo\TutorialBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Demo\TutorialBundle\Model\Album;
@@ -22,6 +23,9 @@ class DefaultController extends Controller {
         return $this->render('DemoTutorialBundle:Default:index.html.twig', array('title' => $title, 'albums' => $albums));
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function addAction() {
         // Using Propel
         $title = 'Add new album';
@@ -39,13 +43,16 @@ class DefaultController extends Controller {
         return $this->render('DemoTutorialBundle:Default:add.html.twig', $params);
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function add_saveAction(Request $request) {
         // Using Propel
         $album = new Album();
 
         if ($request->isMethod('POST')) {
             if ($request->get('add', 'Cancel') == 'Cancel') {
-                return $this->redirect($this->generateUrl('_album'));
+                return $this->redirect($this->generateUrl('_index'));
             }
 
             $form = $this->createFormBuilder($album)
@@ -57,11 +64,14 @@ class DefaultController extends Controller {
 
             if ($form->isValid()) {
                 $album->save();
-                return $this->redirect($this->generateUrl('_album'));
+                return $this->redirect($this->generateUrl('_index'));
             }
         }
     }
 
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
     public function editAction($id) {
         // Using Propel
         $album = AlbumQuery::create()->findPk($id);
@@ -87,13 +97,16 @@ class DefaultController extends Controller {
         return $this->render('DemoTutorialBundle:Default:edit.html.twig', $params);
     }
 
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
     public function edit_saveAction(Request $request) {
         // Using Propel
         $album = new Album();
 
         if ($request->isMethod('POST')) {
             if ($request->get('edit', 'Cancel') == 'Cancel') {
-                return $this->redirect($this->generateUrl('_album'));
+                return $this->redirect($this->generateUrl('_index'));
             }
 
             $form = $this->createFormBuilder($album)
@@ -109,11 +122,14 @@ class DefaultController extends Controller {
                 $tosave->setTitle($album->getTitle());
                 $tosave->setArtist($album->getArtist());
                 $tosave->save();
-                return $this->redirect($this->generateUrl('_album'));
+                return $this->redirect($this->generateUrl('_index'));
             }
         }
     }
 
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
     public function deleteAction($id) {
         // Using Propel
         $album = AlbumQuery::create()->findPk($id);
@@ -137,6 +153,9 @@ class DefaultController extends Controller {
         return $this->render('DemoTutorialBundle:Default:delete.html.twig', $params);
     }
 
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
     public function delete_saveAction(Request $request) {
         // Using Propel
         $album = new Album();
@@ -151,10 +170,10 @@ class DefaultController extends Controller {
                 $del = $request->get('del', 'No');
 
                 if ($del == 'No') {
-                    return $this->redirect($this->generateUrl('_album'));
+                    return $this->redirect($this->generateUrl('_index'));
                 } else if ($del == 'Yes') {
                     $album->delete();
-                    return $this->redirect($this->generateUrl('_album'));
+                    return $this->redirect($this->generateUrl('_index'));
                 }
             }
         }

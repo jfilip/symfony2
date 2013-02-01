@@ -14,8 +14,14 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    user:  { password: 45f106ef4d5161e7aa38cf6c666607f25748b6ca, roles: [ 'ROLE_USER' ] }  # password: userpass
+                    admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: [ 'ROLE_ADMIN' ] } # password: adminpass
+
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm:   sha1
+            iterations: 1
+            encode_as_base64: false
 
     firewalls:
         dev:
@@ -27,13 +33,14 @@ security:
             security: false
 
         secured_area:
-            pattern:    ^/demo/secured/
+            pattern:    ^/
+            anonymous: ~
             form_login:
-                check_path: /demo/secured/login_check
-                login_path: /demo/secured/login
+                check_path: /login_check
+                login_path: /login
             logout:
-                path:   /demo/secured/logout
-                target: /demo/
+                path:   /logout
+                target: /
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
@@ -45,3 +52,6 @@ security:
         # starting with the /_internal prefix to only localhost
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         #- { path: ^/_internal/secure, roles: ROLE_NO_ACCESS }
+        - { path: ^/album/add, roles: ROLE_ADMIN }
+        - { path: ^/album/edit, roles: ROLE_ADMIN }
+        - { path: ^/album/delete, roles: ROLE_ADMIN }

@@ -1,5 +1,6 @@
-_album:
-    pattern:  /album
+
+_index:
+    pattern:  /
     defaults: { _controller: DemoTutorialBundle:Default:index }
 
 _album_add:
