@@ -29,7 +29,3 @@ _album_delete:
 _album_delete_save:
     pattern:  /album/delete/save
     defaults: { _controller: DemoTutorialBundle:Default:delete_save }
-
-_create_test:
-    pattern:   /create_test
-    defaults: { _controller: DemoTutorialBundle:Default:create }
