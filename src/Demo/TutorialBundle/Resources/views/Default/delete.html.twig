@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+<form action="{{ path('_album_delete_save') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" name="del"value="Yes" />
+    <input type="submit" name="del"value="No" />
+</form>
+
+{% endblock body %}

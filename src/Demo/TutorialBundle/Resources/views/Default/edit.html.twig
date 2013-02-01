@@ -3,7 +3,7 @@
 {% block body %}
 
 <h1>{{ title }}</h1>
-<form action="{{ path('_album_edit_save', {'id': album.id}) }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('_album_edit_save') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <input type="submit" />
 </form>

@@ -12,15 +12,6 @@ class DefaultController extends Controller {
     public function indexAction() {
         $title = 'My albums';
 
-        // Using Doctrine
-        // $dbobj = new Album();
-        // $albums = $dbobj->findAll();
-        // $repository = $this->getDoctrine()->getRepository('DemoTutorialBundle:Album');
-        // $albums = $repository->findAll();
-
-        // $em = $this->getDoctrine()->getManager();
-        // $albums = $em->getRepository('DemoTutorialBundle:Album')->fetch_all();
-
         // Using Propel
         $albums = AlbumQuery::create()->orderByTitle()->find();
 
@@ -33,14 +24,41 @@ class DefaultController extends Controller {
 
     public function addAction() {
         // Using Propel
-        // $album = new Album();
-        // $album->setTitle($title);
-        // $album->setArtist($artist);
-        // $album->save();
+        $title = 'Add new album';
+
+        $form = $this->createFormBuilder(new Album())
+            ->add('title', 'text')
+            ->add('artist', 'text')
+            ->getForm();
+
+        $params = array(
+            'title' => $title,
+            'form'  => $form->createView()
+        );
+
+        return $this->render('DemoTutorialBundle:Default:add.html.twig', $params);
+    }
+
+    public function add_saveAction(Request $request) {
+        // Using Propel
+        $album = new Album();
+
+        if ($request->isMethod('POST')) {
+            $form = $this->createFormBuilder($album)
+                ->add('title', 'text')
+                ->add('artist', 'text')
+                ->getForm();
+
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $album->save();
+                return $this->redirect($this->generateUrl('_album'));
+            }
+        }
     }
 
     public function editAction($id) {
-
         // Using Propel
         $album = AlbumQuery::create()->findPk($id);
 
@@ -66,6 +84,7 @@ class DefaultController extends Controller {
     }
 
     public function edit_saveAction(Request $request) {
+        // Using Propel
         $album = new Album();
 
         if ($request->isMethod('POST')) {
@@ -76,7 +95,7 @@ class DefaultController extends Controller {
                 ->getForm();
 
             $form->bind($request);
-// var_dump($form);
+
             if ($form->isValid()) {
                 $tosave = AlbumQuery::create()->findPk($album->getId());
                 $tosave->setTitle($album->getTitle());
@@ -85,31 +104,51 @@ class DefaultController extends Controller {
                 return $this->redirect($this->generateUrl('_album'));
             }
         }
-
-        // $album->setTitle($title);
-        // $album->setArtist($artist);
-        // $album->save();
     }
 
     public function deleteAction($id) {
         // Using Propel
-        // $album = AlbumQuery::create()->findPk($id);
+        $album = AlbumQuery::create()->findPk($id);
 
-        // if (!$album) {
-        //     throw $this->createNotFoundException('No album found for id '.$id);
-        // }
+        if (!$album) {
+            throw $this->createNotFoundException('No album found for id '.$id);
+        }
 
-        // $album->delete();
+        $title = 'Delete album: '.$album->getArtist().' - '.$album->getTitle();
+
+        $form = $this->createFormBuilder($album)
+            ->add('id', 'hidden')
+            ->getForm();
+
+        $params = array(
+            'title' => $title,
+            'album' => $album,
+            'form'  => $form->createView()
+        );
+
+        return $this->render('DemoTutorialBundle:Default:delete.html.twig', $params);
     }
 
-    public function createAction() {
-        // Using propel
+    public function delete_saveAction(Request $request) {
+        // Using Propel
         $album = new Album();
-        $album->setArtist('Jon Convex');
-        $album->setTitle('Idoru');
 
-        $album->save();
+        if ($request->isMethod('POST')) {
+            $form = $this->createFormBuilder($album)
+                ->add('id', 'hidden')
+                ->getForm();
 
-        return new Response('Created album id '.$album->getId());
+            $form->bind($request);
+            if ($form->isValid()) {
+                $del = $request->get('del', 'No');
+
+                if ($del == 'No') {
+                    return $this->redirect($this->generateUrl('_album'));
+                } else if ($del == 'Yes') {
+                    $album->delete();
+                    return $this->redirect($this->generateUrl('_album'));
+                }
+            }
+        }
     }
 }
