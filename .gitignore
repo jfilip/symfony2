@@ -9,3 +9,4 @@ composer.phar
 /.tags*
 *~
 app/propel/*
+.DS_Store
