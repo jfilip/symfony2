@@ -3,11 +3,11 @@ JFILIP Symfony 2 Tutorial Application
 
 This is an attempt to create somethin similar to the Zend 2 tutorial skeleton
 application by writing it in Symfony 2.1 from scratch.
- -- http://framework.zend.com/manual/2.0/en/user-guide/overview.html
- -- http://symfony.com/doc/current/book/installation.html
+  - http://framework.zend.com/manual/2.0/en/user-guide/overview.html
+  - http://symfony.com/doc/current/book/installation.html
 
- Symfony standard README
- -----------------------
+Symfony standard README
+-----------------------
 
  Please see the README-Symfony.md file within this repository for the standard
  Symfony 2.1 readme file contents.
@@ -91,3 +91,24 @@ Then you can use a command to create an SQL install file and use it to create
 the database schema as defined by the code:
 
     php app/console propel:build --insert-sql
+
+Specific code to look at
+------------------------
+
+The following files are the files that were created as part of this demonstration
+project:
+
+    src/Demo/SecurityBundle/Controller/SecurityController.php
+    src/Demo/SecurityBundle/Resources/config/routing.yml
+    src/Demo/SecurityBundle/Resources/views/Security/login.html.twig
+    src/Demo/SecurityBundle/Tests/Controller/SecurityController.php
+    src/Demo/TutorialBundle/Controller/DefaultController.php
+    src/Demo/TutorialBundle/Resources/config/routing.yml
+    src/Demo/TutorialBundle/Resources/config/schema.xml
+    src/Demo/TutorialBundle/Resources/views/Default/add.html.twig
+    src/Demo/TutorialBundle/Resources/views/Default/album_base.html.twig
+    src/Demo/TutorialBundle/Resources/views/Default/delete.html.twig
+    src/Demo/TutorialBundle/Resources/views/Default/edit.html.twig
+    src/Demo/TutorialBundle/Resources/views/Default/index.html.twig
+    src/Demo/TutorialBundle/Tests/Controller/DefaultController.php
+    src/Demo/TutorialBundle/Tests/Model/Album.php
