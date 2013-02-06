@@ -50,7 +50,7 @@ kind of VHost-specific file to add the following:
       ServerName symfony2.localhost
       DocumentRoot "[FULL_PATH_TO_SYMFONY2_CHECKOUT]/web"
       DirectoryIndex index.php
-      Alias /sf FULL_PATH_TO_SYMFONY2_CHECKOUT/web/sf
+      Alias /sf [FULL_PATH_TO_SYMFONY2_CHECKOUT]/web/sf
       <Directory "[FULL_PATH_TO_SYMFONY2_CHECKOUT]/web">
        AllowOverride All
        Allow from All
