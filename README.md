@@ -116,4 +116,5 @@ project:
 References
 ----------
 
+ - http://docs.moodle.org/dev/Moodlerooms_Framework -- Moodlerooms framework documentation
  - http://symfony-check.org/
