@@ -112,3 +112,8 @@ project:
     src/Demo/TutorialBundle/Resources/views/Default/index.html.twig
     src/Demo/TutorialBundle/Tests/Controller/DefaultController.php
     src/Demo/TutorialBundle/Tests/Model/Album.php
+
+References
+----------
+
+ - http://symfony-check.org/
